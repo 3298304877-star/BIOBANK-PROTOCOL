@@ -1,0 +1,12 @@
+missing_rate <- colMeans(is.na(df[,-1]))   # -1 排除 eid 列
+keep_cols <- missing_rate < 0.3            # 保留缺失率 < 30% 的特征（可调整）
+df_clean <- df[, c(TRUE, keep_cols)]       # 保留 eid + 合格特征
+df_clean <- df[, c(TRUE, keep_cols)]       # 保留 eid + 合格特征
+> df_clean <- df_clean %>%
+  +     mutate(across(where(is.numeric), 
+ ~ ifelse(is.na(.), )))
+> df_clean <- df_clean %>%
+  +     mutate(across(.cols = -eid,          # 排除 eid 列
+                      +                   .fns = ~ log2(. + 1)))
+> df_final <- df_clean %>% mutate(across(.cols = -eid, ~ scale(.) %>% as.numeric()))
+1 . 位置 166 → p23490_i1 
