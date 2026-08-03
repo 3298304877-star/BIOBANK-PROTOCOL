@@ -1,9 +1,0 @@
- df %>%
-+     pivot_longer(cols = c(B_intake_mean,C_intake_mean,Cau_intake_mean), 
-+                  names_to = "Food", values_to = "Intake") %>%
-+     pivot_longer(cols = c(SD_G47,AD_G30,PD_G20), 
-+                  names_to = "Disease", values_to = "Has_Disease") %>%
-+     ggplot(aes(x = factor(Has_Disease), y = Intake, fill = factor(Has_Disease))) +
-+     geom_boxplot() +
-+     facet_grid(Disease ~ Food) +
-+     labs(title = "食物摄入量与疾病的关系")
