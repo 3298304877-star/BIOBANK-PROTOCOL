@@ -1,0 +1,18 @@
+
+library(mediation)
+run_mediation <- function(metab_name, data) {
+  med_model <- lm(as.formula(paste(metab_name, "~ exposure")), data = data)
+  out_model <- glm(as.formula(paste("outcome ~ exposure +", metab_name)), 
+                   data = data, family = binomial)
+  result <- mediate(med_model, out_model, 
+                    treat = "Exposure", mediator = metab_name,
+                    sims = 1000)
+  return(tibble(
+    metabolite = metab_name,
+    ACME = result$d0,
+    ACME_p = result$d0.p,
+    CI_lower = result$d0.ci[[1]],
+    CI_upper = result$d0.ci[[2]]
+  ))
+}
+mediation_results <- map_dfr(metab_final, ~ run_mediation(.x, df_mediation))
