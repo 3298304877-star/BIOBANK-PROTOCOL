@@ -1,0 +1,4 @@
+model_multivariable <- glm(as.formula(paste("Outcome~Exposure +", 
+                                           paste(covariates, collapse = " + "))),
+                           data = Data, 
+                           family = binomial(link = "logit"))
