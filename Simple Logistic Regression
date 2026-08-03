@@ -1,0 +1,3 @@
+model_univariable <- glm(SD_G30 ~ Bintake, 
+                         data = df_transformed, 
+                         family = binomial(link = "logit"))
